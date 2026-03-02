@@ -1,9 +1,13 @@
 #include "Bitmap.h"
 
-Bitmap(size_t r, size_t c);
+Bitmap(size_t r, size_t c) {
+	matrix_ = Matrix(r, c);
+}
 Bitmap(const char* filename);
 
-~Bitmap();
+~Bitmap() {
+	delete matrix_;
+}
 
 bool Get(size_t r, size_t c);
 
