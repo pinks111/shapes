@@ -22,5 +22,5 @@ public:
         delete[] array_;
     }
 
-    bool get(size_t row, size_t col)
+    bool get(size_t row, size_t col);
 };
