@@ -1,6 +1,6 @@
 #include "Matrix.h"
 
-Matrix(size_t height, size_t width) : rows_(height), cols_(width)
+Matrix::Matrix(size_t height, size_t width) : rows_(height), cols_(width)
 {
     array_ = new bool* [height];
     for (int i = 0; i < height; i++)
@@ -8,7 +8,7 @@ Matrix(size_t height, size_t width) : rows_(height), cols_(width)
         array_[i] = new bool[width];
     }
 }
-~Matrix()   
+Matrix::~Matrix()   
 {
     for (int i = 0; i < rows_; i++)
     {
@@ -17,4 +17,4 @@ Matrix(size_t height, size_t width) : rows_(height), cols_(width)
     delete[] array_;
 }
 
-bool get(size_t row, size_t col);
+bool Matrix::get(size_t row, size_t col);
