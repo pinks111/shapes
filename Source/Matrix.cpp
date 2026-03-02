@@ -1,11 +1,6 @@
 #include <stddef.h>
 #include <Matrix.h>
 
-struct IndexError
-{
-    char *log;
-};
-
 const IndexError Matrix::indexError_ = IndexError{"Index out of range"};
 
 void Matrix::checkIndexes_(size_t row, size_t col) const
@@ -14,12 +9,12 @@ void Matrix::checkIndexes_(size_t row, size_t col) const
             throw indexError_;
     }
 
-Matrix::Matrix(size_t height, size_t width): rows_(height), cols_(width)
+Matrix::Matrix(size_t rows, size_t cols): rows_(rows), cols_(cols)
 {
-    array_ = new bool*[height];
-    for (int i = 0; i < height; i++)
+    array_ = new bool*[rows];
+    for (int i = 0; i < rows; i++)
     {
-        array_[i] = new bool[width];
+        array_[i] = new bool[cols];
     }
 }
 Matrix::~Matrix()
