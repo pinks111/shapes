@@ -13,7 +13,7 @@ class Matrix {
     void checkIndexes_(size_t row, size_t col) const;
 
 public:
-    Matrix(size_t height, size_t width);
+    Matrix(size_t rows, size_t cols);
 
     ~Matrix();
 
