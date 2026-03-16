@@ -1,11 +1,10 @@
 #include "Matrix.h"
-
-const IndexError Matrix::indexError_ = IndexError{"Index out of range"};
+#include <stdexcept>
 
 void Matrix::checkIndexes_(size_t row, size_t col) const
     {
         if (row > rows_-1 || col > cols_-1)
-            throw indexError_;
+            throw std::out_of_range("Index out of range");
     }
 
 Matrix::Matrix(size_t rows, size_t cols): rows_(rows), cols_(cols)

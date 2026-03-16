@@ -1,12 +1,9 @@
-#pragma once
 #include "Matrix.h"
 
 class Bitmap {
 public:
   Bitmap(size_t r, size_t c);
-  Bitmap(const char* filename);
-
-  ~Bitmap();
+  Bitmap(const char* filename): matrix_(Matrix(0, 0)) {};
 
   bool Get(size_t r, size_t c);
 

@@ -1,14 +1,8 @@
 #include "Bitmap.h"
+#include "Matrix.h"
 #include <fstream>
 
-Bitmap::Bitmap(size_t r, size_t c) {
-	matrix_ = new Matrix(r, c);
-}
-Bitmap::Bitmap(const char* filename) {}
-
-Bitmap::~Bitmap() {
-	delete matrix_;
-}
+Bitmap::Bitmap(size_t r, size_t c): matrix_(Matrix(r, c)) {}
 
 bool Bitmap::Get(size_t r, size_t c) {
 	return matrix_.get(r, c);

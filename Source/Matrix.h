@@ -1,15 +1,10 @@
-#include <stddef.h>
-
-struct IndexError
-{
-    char *log;
-};
+#pragma once
+#include <cstddef>
 
 class Matrix {
     bool **array_;
     size_t cols_;
     size_t rows_;
-    static const IndexError indexError_;
     void checkIndexes_(size_t row, size_t col) const;
 
 public:
