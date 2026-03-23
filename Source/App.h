@@ -1,6 +1,8 @@
 #pragma once 
 #include "Storage.h"
+#include "Identi.h"
 #include "Shapes.h"
+
 enum class PrimitiveType{
 	POINT,
 	SEGMENT,
@@ -8,11 +10,11 @@ enum class PrimitiveType{
 };
 
 enum class MutualArrangeType {
-	POINTCOINCIDENT, // Две точки совпадают
-	POINTDISTANCE, // Две точки на заданном расстоянии
-	POINTSSYMMETRYSEGMENT,  // Две точки симметричны относительно отрезка      
+	POINTCOINCIDENT, // Р”РІРµ С‚РѕС‡РєРё СЃРѕРІРїР°РґР°СЋС‚
+	POINTDISTANCE, // Р”РІРµ С‚РѕС‡РєРё РЅР° Р·Р°РґР°РЅРЅРѕРј СЂР°СЃСЃС‚РѕСЏРЅРёРё
+	POINTSSYMMETRYSEGMENT,  // Р”РІРµ С‚РѕС‡РєРё СЃРёРјРјРµС‚СЂРёС‡РЅС‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РѕС‚СЂРµР·РєР°      
 	POINTOBELONGSEGMENT,
-	SEGMENTSNORMAL, // Два отрезка ортогональны
+	SEGMENTSNORMAL, // Р”РІР° РѕС‚СЂРµР·РєР° РѕСЂС‚РѕРіРѕРЅР°Р»СЊРЅС‹
 	SEGMENTVERTICAL,
 	SEGMENTLENGTH
 };
@@ -21,12 +23,12 @@ enum class MutualArrangeType {
 class App{
 public:
 	App();
-	// Метод для добавления примитивов 
+	// РњРµС‚РѕРґ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РіСЂР°С„РёС‡РµСЃРєРёС… РїСЂРёРјРёС‚РёРІРѕРІ 
 	Identi addObject(PrimitiveType type);
 
-	// Метод для добавления пожеланий о расположении
+	// РњРµС‚РѕРґ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РїРѕР¶РµР»Р°РЅРёР№ Рѕ СЂР°СЃРїРѕР»РѕР¶РµРЅРёРё
 	void addArrange(MutualArrangeType type, Storage<Identi> ii);
-      	// Метод для добавления пожеланий о расположении с дополнительным параметром
+      	// РњРµС‚РѕРґ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РїРѕР¶РµР»Р°РЅРёР№ Рѕ СЂР°СЃРїРѕР»РѕР¶РµРЅРёРё СЃ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рј РїР°СЂР°РјРµС‚СЂРѕРј
 	void addArrange(MutualArrangeType type, Storage<Identi> ii, double value);
 
 
@@ -37,7 +39,7 @@ private:
     Storage<Segment<double>> segmentStorage_;
     Storage<Circle<double>>  circleStorage_;
 
-    // Метод для оценки взаимного расположения объектов
+    // РњРµС‚РѕРґ РґР»СЏ РѕС†РµРЅРєРё С‚РµРєСѓС‰РµРіРѕ РїРѕР»РѕР¶РµРЅРёСЏ РґРµР» РґР»СЏ РЅРµРѕС‚РѕСЂРѕРіРѕ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ
     double measure_(MutualArrangeType type,  Storage<Identi> ii);
 
 };
