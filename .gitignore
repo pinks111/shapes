@@ -421,10 +421,4 @@ FodyWeavers.xsd
 # VS Code
 .vscode/
 /vcpkg.json
-/vcpkg_installed/x64-windows/vcpkg/compiler-file-hash-cache.json
-/vcpkg_installed/x64-windows/vcpkg/manifest-info.json
-/vcpkg_installed/x64-windows/vcpkg/status
-/vcpkg_installed/x64-windows/vcpkg/info/gtest_1.17.0_x64-windows.list
-/vcpkg_installed/x64-windows/vcpkg/info/vcpkg-cmake_2024-04-23_x64-windows.list
-/vcpkg_installed/x64-windows/vcpkg/info/vcpkg-cmake-config_2024-05-23_x64-windows.list
-/vcpkg_installed/x64-windows/.msbuildstamp-x64-windows.stamp
+/vcpkg_installed/

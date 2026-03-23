@@ -2,29 +2,39 @@
 #include <ctime>
 #include "Source/App.h"
 #include "Source/Bitmap.h"
-#include "Source/shapes.h"
+#include "Source/Shapes.h"
 #include "Source/Storage.h"
 
 int main() {
-    
-     App app;
-     Identi i1 = app.addObject(POINT);
-     Identi i2 = app.addObject(POINT);
+    App app;
 
-     app.addArange(POINTCOINCIDENT,i1, i2);
+     Identi i1 = app.addObject(PrimitiveType::POINT);
+     Identi i2 = app.addObject(PrimitiveType::POINT);
+     Storage<Identi> stor(2);
+     stor.addItem(i1);
+     stor.addItem(i2);
+     app.addArrange(MutualArrangeType::POINTCOINCIDENT,stor);
 
-     Identi i3 = app.addObject(SEGMENT);
-     Identi i4 = app.addObject(SEGMENT);
+     Identi i3 = app.addObject
+     (PrimitiveType::SEGMENT);
+     Identi i4 = app.addObject(PrimitiveType::SEGMENT);
 
-     app.addArange(SEGMENTSNORMAL,i3,i4);
-
-     Identi i5 = app.addObject(POINT);
-
-     app.addArange(POINTOBELONGSEGMENT,i5,i3);
-     app.addArange(POINTOBELONGSEGMENT,i3,i5);
-
-     app.addArange(SEGMENTLENGTH,i3 , 10.1 );
+     Storage<Identi> stor1(2);
+     stor.addItem(i3);
+     stor.addItem(i4);
      
+     app.addArrange(MutualArrangeType::SEGMENTSNORMAL,stor);
 
-    return 0;
+     Identi i5 = app.addObject(PrimitiveType::POINT);
+
+     Storage<Identi> stor2(2);
+     stor.addItem(i3);
+     stor.addItem(i5);     
+
+     app.addArrange(MutualArrangeType::POINTOBELONGSEGMENT,stor2);
+     app.addArrange(MutualArrangeType::POINTOBELONGSEGMENT,stor2);
+
+     Storage<Identi> stor3(1);
+     stor.addItem(i3);     
+     app.addArrange(MutualArrangeType::SEGMENTLENGTH,stor, 10.1 );
 }
