@@ -422,3 +422,4 @@ FodyWeavers.xsd
 .vscode/
 /vcpkg.json
 /vcpkg_installed/
+.DS_Store
