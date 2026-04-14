@@ -19,6 +19,9 @@ public:
     Identi addArrange(MutualArrangeType type, const Storage<Identi>& ii);
     Identi addArrange(MutualArrangeType type, const Storage<Identi>& ii, double value);
     double sumErrors();
+	
+	bool solve();
+
     
     Storage<Point<double>>& getPoints() { return pointStorage_; }
     Storage<Segment<double>>& getSegments() { return segmentStorage_; }
