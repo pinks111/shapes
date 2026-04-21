@@ -7,13 +7,13 @@
 enum class PrimitiveType{ POINT, SEGMENT, CIRCLE };
 
 enum class MutualArrangeType {
-	POINTCOINCIDENT, // Две точки совпадают
-	POINTDISTANCE, // Две точки на заданном расстоянии
-	POINTSSYMMETRYSEGMENT,  // Две точки симметричны относительно отрезка      
-	POINTBELONGSTOSEGMENT,
-	SEGMENTSNORMAL, // Два отрезка ортогональны
-	SEGMENTVERTICAL,
-	SEGMENTLENGTH
+	POINTCOINCIDENT,       // Две точки совпадают
+	POINTDISTANCE,         // Две точки на заданном расстоянии
+	POINTSSYMMETRYSEGMENT, // Две точки симметричны относительно отрезка
+	POINTBELONGSTOSEGMENT, // Точка должна принадлежать отрезку
+	SEGMENTSNORMAL,        // Два отрезка ортогональны
+	SEGMENTVERTICAL,       // Отрезок должен быть вертикальным
+	SEGMENTLENGTH          // Отрезок должен иметь указанную длину
 };
 
 
@@ -38,20 +38,28 @@ class Relation : public GeometricObject {
 protected:
     Storage<Identi> objects_;
     double value_;
+    App* app_ = nullptr;
     
 public:
     Relation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : GeometricObject(id), objects_(objects), value_(value) {}
     
     virtual ~Relation() {}
+
+    void setApp(App* app) { app_ = app; }
     
     const Storage<Identi>& getObjects() const { return objects_; }
     double getValue() const { return value_; }
     
-    virtual double measure(App& app) const = 0;
-    double error(App& app) const { return std::abs(measure(app) - value_); }
+    virtual double measure() const = 0;
+	
+	virtual Storage<double> partitions() const = 0;
+
+    double error() const { return std::abs(measure() - value_); }
     
     virtual MutualArrangeType getType() const = 0;
+
+    virtual void setTargetValue(double value) { value_ = value; }
     
     void print() const {
         std::cout << "Relation ID: " << id_.getID() 
