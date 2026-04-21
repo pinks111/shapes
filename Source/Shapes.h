@@ -38,12 +38,15 @@ class Relation : public GeometricObject {
 protected:
     Storage<Identi> objects_;
     double value_;
+    App* app_ = nullptr;
     
 public:
     Relation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : GeometricObject(id), objects_(objects), value_(value) {}
     
     virtual ~Relation() {}
+
+    void setApp(App* app) { app_ = app; }
     
     const Storage<Identi>& getObjects() const { return objects_; }
     double getValue() const { return value_; }
@@ -55,6 +58,8 @@ public:
     double error(App& app) const { return std::abs(measure(app) - value_); }
     
     virtual MutualArrangeType getType() const = 0;
+
+    virtual void setTargetValue(double value) { value_ = value; }
     
     void print() const {
         std::cout << "Relation ID: " << id_.getID() 
