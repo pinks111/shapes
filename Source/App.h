@@ -2,7 +2,6 @@
 #include "Storage.h"
 #include "Identi.h"
 #include "Shapes.h"
-#include <type_traits>
 
 
 class App{
@@ -23,17 +22,17 @@ public:
 	
 	bool solve();
 
+    
     Storage<Point<double>>& getPoints() { return pointStorage_; }
     Storage<Segment<double>>& getSegments() { return segmentStorage_; }
     const Storage<Point<double>>& getPoints() const { return pointStorage_; }
     const Storage<Segment<double>>& getSegments() const { return segmentStorage_; }
-    Storage<Circle<double>>& getCircles() { return circleStorage_; }
     const Storage<Circle<double>>& getCircles() const { return circleStorage_; }
     
-    template<typename T>
+    template<typename T> 
     T* findObjectById(const Identi& id, Storage<T>& storage) {
-        for (size_t i = 0; i < storage.getSize(); ++i) {
-            if (storage.getItem(i).getId() == id) {
+        for(size_t i = 0; i < storage.getSize(); ++i) {
+            if(storage.getItem(i).getId() == id) {
                 return &storage.getItem(i);
             }
         }
