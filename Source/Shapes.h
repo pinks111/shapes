@@ -56,6 +56,20 @@ public:
 	virtual Storage<double> partitions() const = 0;
 
     double error() const { return std::abs(measure() - value_); }
+
+    Storage<double> errors() const {
+        static const double learning_rate = 0.1;  
+        Storage<double> grad = partitions();      
+        double current_error = error();           
+        Storage<double> predicted_errors;
+        
+        for (size_t i = 0; i < grad.getSize(); ++i) {
+            double new_error = current_error - learning_rate * grad.getItem(i);
+            predicted_errors.addItem(new_error);
+        }
+        
+        return predicted_errors;
+    }
     
     virtual MutualArrangeType getType() const = 0;
 
