@@ -72,6 +72,7 @@ Identi App::addArrange(MutualArrangeType type, const Storage<Identi>& ii, double
     }
 
     if (relation != nullptr) {
+        relation->setApp(this);
         relationStorage_.addItem(relation);
     }
 
@@ -86,8 +87,9 @@ double App::sumErrors() {
     for (size_t i = 0; i < relationStorage_.getSize(); ++i) {
         Relation* relation = relationStorage_.getItem(i);
         if (relation != nullptr) {
-            total += relation->error(*this);
+            total += relation->error();
         }
     }
     return total;
 }
+
