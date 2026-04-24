@@ -25,6 +25,7 @@ public:
     
     Storage<Point<double>>& getPoints() { return pointStorage_; }
     Storage<Segment<double>>& getSegments() { return segmentStorage_; }
+    Storage<Circle<double>>& getCircles() { return circleStorage_; }    
     const Storage<Point<double>>& getPoints() const { return pointStorage_; }
     const Storage<Segment<double>>& getSegments() const { return segmentStorage_; }
     const Storage<Circle<double>>& getCircles() const { return circleStorage_; }
