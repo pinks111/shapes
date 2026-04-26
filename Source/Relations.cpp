@@ -2,14 +2,14 @@
 #include "App.h"
 #include <cmath>
 
-
 double PointCoincidentRelation::measure() const {
     Identi id1 = objects_.getItem(0);
     Identi id2 = objects_.getItem(1);
 
-    Point<double>* p1 = app_->findObjectById(id1, app_->getPoints());
-    Point<double>* p2 = app_->findObjectById(id2, app_->getPoints());
-    if (p1 == nullptr || p2 == nullptr) {
+    Point<double> *p1 = app_->findObjectById(id1, app_->getPoints());
+    Point<double> *p2 = app_->findObjectById(id2, app_->getPoints());
+    if (p1 == nullptr || p2 == nullptr)
+    {
         return 0.0;
     }
 
@@ -19,33 +19,33 @@ double PointCoincidentRelation::measure() const {
 }
 
 Storage<double> PointCoincidentRelation::partitions() const {
-	Identi id1 = objects_.getItem(0);
-	Identi id2 = objects_.getItem(1);
+    Identi id1 = objects_.getItem(0);
+    Identi id2 = objects_.getItem(1);
 
-	Point<double>* p1 = app_->findObjectById(id1, app_->getPoints());
-	Point<double>* p2 = app_->findObjectById(id2, app_->getPoints());
-	if (p1 == nullptr || p2 == nullptr) {
-		return Storage<double>();
-	}
+    Point<double> *p1 = app_->findObjectById(id1, app_->getPoints());
+    Point<double> *p2 = app_->findObjectById(id2, app_->getPoints());
+    if (p1 == nullptr || p2 == nullptr) {
+        return Storage<double>();
+    }
 
-	double dx = p1->x() - p2->x();
-	double dy = p1->y() - p2->y();
-	double dist = std::sqrt(dx * dx + dy * dy);
+    double dx = p1->x() - p2->x();
+    double dy = p1->y() - p2->y();
+    double dist = std::sqrt(dx * dx + dy * dy);
 
-	Storage<double> result;
-	result.addItem(dx / dist);
-	result.addItem(dy / dist);
-	result.addItem(-dx / dist);
-	result.addItem(-dy / dist);
-	return result;
+    Storage<double> result;
+    result.addItem(dx / dist);
+    result.addItem(dy / dist);
+    result.addItem(-dx / dist);
+    result.addItem(-dy / dist);
+    return result;
 }
 
 double PointDistanceRelation::measure() const {
     Identi id1 = objects_.getItem(0);
     Identi id2 = objects_.getItem(1);
 
-    Point<double>* p1 = app_->findObjectById(id1, app_->getPoints());
-    Point<double>* p2 = app_->findObjectById(id2, app_->getPoints());
+    Point<double> *p1 = app_->findObjectById(id1, app_->getPoints());
+    Point<double> *p2 = app_->findObjectById(id2, app_->getPoints());
     if (p1 == nullptr || p2 == nullptr) {
         return 0.0;
     }
@@ -60,8 +60,8 @@ Storage<double> PointDistanceRelation::partitions() const {
     Identi id1 = objects_.getItem(0);
     Identi id2 = objects_.getItem(1);
 
-    Point<double>* p1 = app_->findObjectById(id1, app_->getPoints());
-    Point<double>* p2 = app_->findObjectById(id2, app_->getPoints());
+    Point<double> *p1 = app_->findObjectById(id1, app_->getPoints());
+    Point<double> *p2 = app_->findObjectById(id2, app_->getPoints());
     if (p1 == nullptr || p2 == nullptr) {
         return Storage<double>();
     }
@@ -82,11 +82,11 @@ Storage<double> PointDistanceRelation::partitions() const {
 }
 
 double PointBelongsToSegmentRelation::measure() const {
-    Identi ptId  = objects_.getItem(0);
+    Identi ptId = objects_.getItem(0);
     Identi segId = objects_.getItem(1);
 
-    Point<double>*   pt  = app_->findObjectById(ptId,  app_->getPoints());
-    Segment<double>* seg = app_->findObjectById(segId, app_->getSegments());
+    Point<double> *pt = app_->findObjectById(ptId, app_->getPoints());
+    Segment<double> *seg = app_->findObjectById(segId, app_->getSegments());
     if (pt == nullptr || seg == nullptr) {
         return 0.0;
     }
@@ -104,13 +104,13 @@ double PointBelongsToSegmentRelation::measure() const {
 }
 
 double PointsSymmetrySegmentRelation::measure() const {
-    Identi id1   = objects_.getItem(0);
-    Identi id2   = objects_.getItem(1);
+    Identi id1 = objects_.getItem(0);
+    Identi id2 = objects_.getItem(1);
     Identi segId = objects_.getItem(2);
 
-    Point<double>*   p1  = app_->findObjectById(id1,   app_->getPoints());
-    Point<double>*   p2  = app_->findObjectById(id2,   app_->getPoints());
-    Segment<double>* seg = app_->findObjectById(segId, app_->getSegments());
+    Point<double> *p1 = app_->findObjectById(id1, app_->getPoints());
+    Point<double> *p2 = app_->findObjectById(id2, app_->getPoints());
+    Segment<double> *seg = app_->findObjectById(segId, app_->getSegments());
     if (p1 == nullptr || p2 == nullptr || seg == nullptr) {
         return 0.0;
     }
@@ -134,8 +134,8 @@ double SegmentsNormalRelation::measure() const {
     Identi id1 = objects_.getItem(0);
     Identi id2 = objects_.getItem(1);
 
-    Segment<double>* s1 = app_->findObjectById(id1, app_->getSegments());
-    Segment<double>* s2 = app_->findObjectById(id2, app_->getSegments());
+    Segment<double> *s1 = app_->findObjectById(id1, app_->getSegments());
+    Segment<double> *s2 = app_->findObjectById(id2, app_->getSegments());
     if (s1 == nullptr || s2 == nullptr) {
         return 0.0;
     }
@@ -156,7 +156,7 @@ double SegmentsNormalRelation::measure() const {
 double SegmentVerticalRelation::measure() const {
     Identi segmentId = objects_.getItem(0);
 
-    Segment<double>* seg = app_->findObjectById(segmentId, app_->getSegments());
+    Segment<double> *seg = app_->findObjectById(segmentId, app_->getSegments());
     if (seg == nullptr) {
         return 0.0;
     }
@@ -168,7 +168,7 @@ double SegmentVerticalRelation::measure() const {
 double SegmentLengthRelation::measure() const {
     Identi segmentId = objects_.getItem(0);
 
-    Segment<double>* seg = app_->findObjectById(segmentId, app_->getSegments());
+    Segment<double> *seg = app_->findObjectById(segmentId, app_->getSegments());
     if (seg == nullptr) {
         return 0.0;
     }
@@ -193,5 +193,69 @@ Storage<double> SegmentVerticalRelation::partitions() const {
 }
 
 Storage<double> SegmentLengthRelation::partitions() const {
+    return Storage<double>();
+}
+
+static Storage<double> pointParams(Point<double> *p) {
+    Storage<double> r;
+    r.addItem(p->x());
+    r.addItem(p->y());
+    return r;
+}
+
+static Storage<double> segmentParams(Segment<double> *s) {
+    Storage<double> r;
+    r.addItem(s->p1().x());
+    r.addItem(s->p1().y());
+    r.addItem(s->p2().x());
+    r.addItem(s->p2().y());
+    return r;
+}
+
+Storage<double> PointCoincidentRelation::getParameters() const {
+    Point<double> *p1 =
+        app_->findObjectById(objects_.getItem(0), app_->getPoints());
+    Point<double> *p2 =
+        app_->findObjectById(objects_.getItem(1), app_->getPoints());
+    if (!p1 || !p2)
+        return Storage<double>();
+    Storage<double> r = pointParams(p1);
+    Storage<double> r2 = pointParams(p2);
+    for (size_t i = 0; i < r2.getSize(); ++i)
+        r.addItem(r2.getItem(i));
+    return r;
+}
+
+Storage<double> PointDistanceRelation::getParameters() const {
+    Point<double> *p1 =
+        app_->findObjectById(objects_.getItem(0), app_->getPoints());
+    Point<double> *p2 =
+        app_->findObjectById(objects_.getItem(1), app_->getPoints());
+    if (!p1 || !p2)
+        return Storage<double>();
+    Storage<double> r = pointParams(p1);
+    Storage<double> r2 = pointParams(p2);
+    for (size_t i = 0; i < r2.getSize(); ++i)
+        r.addItem(r2.getItem(i));
+    return r;
+}
+
+Storage<double> PointsSymmetrySegmentRelation::getParameters() const {
+    return Storage<double>();
+}
+
+Storage<double> PointBelongsToSegmentRelation::getParameters() const {
+    return Storage<double>();
+}
+
+Storage<double> SegmentsNormalRelation::getParameters() const {
+    return Storage<double>();
+}
+
+Storage<double> SegmentVerticalRelation::getParameters() const {
+    return Storage<double>();
+}
+
+Storage<double> SegmentLengthRelation::getParameters() const {
     return Storage<double>();
 }

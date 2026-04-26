@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/cmake_install.cmake",
+		"C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-build/cmake_install.cmake",
+		"C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-build/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

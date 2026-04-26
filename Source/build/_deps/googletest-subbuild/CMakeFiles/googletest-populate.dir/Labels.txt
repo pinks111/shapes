@@ -1,0 +1,14 @@
+# Target labels
+ googletest-populate
+# Source files and their labels
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/03f6b24f28e7933d9aa9eea4c2801114/googletest-populate.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/622ef41b96837c6741ca84084c9169dd/googletest-populate-complete.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-build.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-configure.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-download.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-install.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-mkdir.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-patch.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-test.rule
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-update.rule

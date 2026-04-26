@@ -28,7 +28,7 @@ public:
     const Storage<Point<double>>& getPoints() const { return pointStorage_; }
     const Storage<Segment<double>>& getSegments() const { return segmentStorage_; }
     const Storage<Circle<double>>& getCircles() const { return circleStorage_; }
-    
+
     template<typename T> 
     T* findObjectById(const Identi& id, Storage<T>& storage) {
         for(size_t i = 0; i < storage.getSize(); ++i) {

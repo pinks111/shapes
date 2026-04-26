@@ -6,6 +6,8 @@ public:
     PointCoincidentRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
     double measure() const override;
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTCOINCIDENT; }
 };
@@ -15,6 +17,8 @@ public:
     PointDistanceRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
     double measure() const override;
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTDISTANCE; }
 };
@@ -24,6 +28,8 @@ public:
     PointsSymmetrySegmentRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
     double measure() const override;
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTSSYMMETRYSEGMENT; }
 };
@@ -33,6 +39,8 @@ public:
     PointBelongsToSegmentRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
     double measure() const override;
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTBELONGSTOSEGMENT; }
 };
@@ -42,6 +50,8 @@ public:
     SegmentsNormalRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
     double measure() const override;
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTSNORMAL; }
 };
@@ -51,6 +61,8 @@ public:
     SegmentVerticalRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
     double measure() const override;
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTVERTICAL; }
 };
@@ -59,6 +71,8 @@ class SegmentLengthRelation : public Relation {
 public:
     SegmentLengthRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
+	Storage<double> getParameters() const override;
+	void setParameters(const Storage<double>&) override;
     double measure() const override;
 	Storage<double> partitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTLENGTH; }

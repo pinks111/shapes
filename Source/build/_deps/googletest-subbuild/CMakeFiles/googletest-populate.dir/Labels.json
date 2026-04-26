@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/03f6b24f28e7933d9aa9eea4c2801114/googletest-populate.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/622ef41b96837c6741ca84084c9169dd/googletest-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/\u0410\u0440\u0438\u043d\u0430/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/923b28d25399aa7c46604b106ba3fd59/googletest-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googletest-populate"
+		],
+		"name" : "googletest-populate"
+	}
+}

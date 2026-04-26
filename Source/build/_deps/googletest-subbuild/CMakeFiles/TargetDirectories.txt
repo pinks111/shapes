@@ -1,0 +1,3 @@
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/ALL_BUILD.dir
+C:/Users/Арина/OneDrive/Desktop/2sem/classwork/CW/shapes/Source/build/_deps/googletest-subbuild/CMakeFiles/ZERO_CHECK.dir

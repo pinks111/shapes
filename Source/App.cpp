@@ -93,3 +93,37 @@ double App::sumErrors() {
     return total;
 }
 
+bool App::solve() {
+	// Пока работаем только с одним требованием
+	if (relationStorage_.getSize() == 1) {
+
+		// Посчитаем текущее значение ошибки		
+		double current_error = relationStorage_.getItem(0)->error();
+		
+		const double errorThrreshold = 1e-3;
+
+		while (current_error > errorThrreshold) {
+			// Получим массив значений параметров
+			Storage<double> parameters = relationStorage_.getItem(0)->getParameters();
+
+			// Вычислим вектор частных производных для требования
+			Storage<double> grad = relationStorage_.getItem(0)->partitions();
+
+			// Сформируем новый вектор параметров
+			static const double learning_rate = 0.1;
+			Storage<double> newParameters;
+			for (size_t i = 0; i < grad.getSize(); ++i) {
+				newParameters.addItem(parameters.getItem(i) - learning_rate * grad.getItem(i));
+			}
+
+			// Обновим параметры
+			relationStorage_.getItem(0)->setParameters(newParameters);
+
+			// Посчитаем новое значение ошибки		
+			current_error = relationStorage_.getItem(0)->error();
+			std::cout << "Error " << current_error << std::endl;
+		}
+	}
+
+	return true;
+}
