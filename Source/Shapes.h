@@ -72,17 +72,6 @@ public:
     }
 };
 
-template <typename num> class point_coor {
-protected:
-    num x_, y_;
-public:
-    point_coor(num x = 0, num y = 0) : x_(x), y_(y) {}
-    num x() const { return x_; }
-    num y() const { return y_; }
-    void set_x(num x) { x_ = x; }
-    void set_y(num y) { y_ = y; }
-};
-
 template <typename num> class Point : public GeometricObject, public point_coor<num> {
 public:
     Point(num x = 0, num y = 0) : point_coor<num>(x, y) {}

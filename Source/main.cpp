@@ -9,6 +9,7 @@ void printMenu() {
     std::cout << "4. Set relation\n";
     std::cout << "5. Show all objects\n";
     std::cout << "6. Show sum of errors\n";
+    std::cout << "7. Show bounding rectangle\n";
     std::cout << "0. Quit\n";
     std::cout << "> ";
 }
@@ -131,6 +132,14 @@ int main() {
 
             case 6: {
                 std::cout << "Sum of errors: " << app.sumErrors() << "\n";
+                break;
+            }
+
+            case 7: {
+                Rectangle<double> r = app.unionRect();
+                std::cout << "Bounding rectangle:\n";
+                std::cout << "  top-left:     (" << r.topLeft().x()     << ", " << r.topLeft().y()     << ")\n";
+                std::cout << "  bottom-right: (" << r.bottomRight().x() << ", " << r.bottomRight().y() << ")\n";
                 break;
             }
         }
