@@ -4,6 +4,7 @@
 
 #include "../Source/App.h"
 #include "../Source/Relations.h"
+#include "../Source/Rectangle.h"
 #include <cmath>
 
 TEST(PointDistance, SamePoint) {
@@ -131,6 +132,81 @@ TEST(SegmentVertical, NegativeDirection) {
     EXPECT_DOUBLE_EQ(relation.measure(), 5.0);
 }
 
+
+TEST(Rectangle, Init) {
+	using pd = point_coor<double>;
+	Rectangle<double> rect1({ 0.0,0.0 }, { 0.0,0.0 });
+	EXPECT_DOUBLE_EQ(rect1.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.topLeft().y(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().y(), 0.0);
+
+	Rectangle<double> rect2({ 0.0,0.0 }, { 1.0,-1.0 });
+	EXPECT_DOUBLE_EQ(rect1.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.topLeft().y(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().x(), 1.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().y(), -1.0);
+
+	Rectangle<double> rect3({ 0.0,0.0 }, { 0.0,-1.0 });
+	EXPECT_DOUBLE_EQ(rect1.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.topLeft().y(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().y(), -1.0);
+
+	Rectangle<double> rect4({ 0.0,0.0 }, { 1.0,0.0 });
+	EXPECT_DOUBLE_EQ(rect1.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.topLeft().y(), 0.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().x(), 1.0);
+	EXPECT_DOUBLE_EQ(rect1.bottomRight().y(), 0.0);
+
+}
+
+TEST(Rectangle, InitThrow){
+	EXPECT_THROW(Rectangle<double> rect3({ 1.0,-1.0 }, { 0.0,0.0 }),std::invalid_argument);
+	
+	EXPECT_THROW(Rectangle<double> rect4({ 0.0,-1.0 }, { 1.0,0.0 }), std::invalid_argument);
+}
+
+TEST(Rectangle,UnionPoints) {
+	Rectangle<double> rect1({ 0.0,0.0 }, { 0.0,0.0 });
+	Rectangle<double> rect2({ 1.0,1.0 }, { 1.0,1.0 });
+
+	auto rect3 = rect1.unite(rect2);
+	EXPECT_DOUBLE_EQ(rect3.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect3.topLeft().y(), 1.0);
+	EXPECT_DOUBLE_EQ(rect3.bottomRight().x(), 1.0);
+	EXPECT_DOUBLE_EQ(rect3.bottomRight().y(), 0.0);
+
+	Rectangle<double> rect4({ -1.0,-1.0 }, { -1.0,-1.0 });
+
+	auto rect5 = rect1.unite( rect4);
+	EXPECT_DOUBLE_EQ(rect5.topLeft().x(), -1.0);
+	EXPECT_DOUBLE_EQ(rect5.topLeft().y(), 0.0);
+	EXPECT_DOUBLE_EQ(rect5.bottomRight().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect5.bottomRight().y(), -1.0);
+}
+
+TEST(Rectangle, UnionSegments) {
+	Rectangle<double> rect1({ 0.0,0.0 }, { 1.0,0.0 });
+	Rectangle<double> rect2({ 1.0,1.0 }, { 1.0,2.0 });
+
+	auto rect3 = rect1.unite(rect2);
+	EXPECT_DOUBLE_EQ(rect3.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect3.topLeft().y(), 2.0);
+	EXPECT_DOUBLE_EQ(rect3.bottomRight().x(), 1.0);
+	EXPECT_DOUBLE_EQ(rect3.bottomRight().y(), 0.0);
+
+	Rectangle<double> rect4({ 0.0,0.0 }, { 2.0,0.0 });
+
+	auto rect5 = rect1.unite(rect4);
+	EXPECT_DOUBLE_EQ(rect5.topLeft().x(), 0.0);
+	EXPECT_DOUBLE_EQ(rect5.topLeft().y(), 0.0);
+	EXPECT_DOUBLE_EQ(rect5.bottomRight().x(), 2.0);
+	EXPECT_DOUBLE_EQ(rect5.bottomRight().y(), 0.0);
+}
+
+
+
 // TEST (Matrix, CreateSquare)
 // {
 // 	const size_t R = 128;
@@ -179,3 +255,4 @@ TEST(SegmentVertical, NegativeDirection) {
 // 	Matrix m(R, C);
 // 	ASSERT_THROW (m.get(129, 1), std::out_of_range);
 // }
+
