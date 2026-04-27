@@ -1,8 +1,10 @@
 #pragma once
 #include "Identi.h"
 #include "Storage.h"
+#include "Rectangle.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 enum class PrimitiveType{ POINT, SEGMENT, CIRCLE, RECTANGLE };
 
@@ -15,7 +17,6 @@ enum class MutualArrangeType {
 	SEGMENTVERTICAL,       // Отрезок должен быть вертикальным
 	SEGMENTLENGTH          // Отрезок должен иметь указанную длину
 };
-
 
 class GeometricObject {
 protected:
@@ -88,6 +89,13 @@ public:
 
     Identi getId() const { return id_; }
     void setId(const Identi& new_id) { id_ = new_id; }
+
+    Rectangle<num> getBoundingRect() const {
+        return Rectangle<num>(
+            point_coor<num>(this->x_, this->y_),
+            point_coor<num>(this->x_, this->y_)
+        );
+    }
 };
 
 template <typename num>
@@ -115,6 +123,17 @@ public:
         double dy = p1_.y() - p2_.y();
         return std::sqrt(dx*dx + dy*dy);  
     }
+
+    Rectangle<num> getBoundingRect() const {
+        num min_x = std::min(p1_.x(), p2_.x());
+        num min_y = std::min(p1_.y(), p2_.y());
+        num max_x = std::max(p1_.x(), p2_.x());
+        num max_y = std::max(p1_.y(), p2_.y());
+        return Rectangle<num>(
+            point_coor<num>(min_x, max_y),
+            point_coor<num>(max_x, min_y)
+        );
+    }
 };
 
 template <typename num>
@@ -138,6 +157,13 @@ public:
     double radius() const { return radius_; }
     void set_center(const Point<num>& center) { center_ = center; }
     void set_radius(double radius) { radius_ = radius; }
+
+    Rectangle<num> getBoundingRect() const {
+        return Rectangle<num>(
+            point_coor<num>(center_.x() - radius_, center_.y() + radius_),
+            point_coor<num>(center_.x() + radius_, center_.y() - radius_)
+        );
+    }
 };
 
 template<typename num>
@@ -147,3 +173,5 @@ std::ostream& operator<<(std::ostream& os, const Circle<num>& circle) {
        << "), radius: " << circle.radius() << ")";
     return os;
 }
+
+

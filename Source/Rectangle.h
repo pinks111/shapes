@@ -1,4 +1,5 @@
 #pragma once
+#include "Identi.h"
 #include "Shapes.h"
 
 template <typename num> class Rectangle {
@@ -16,5 +17,4 @@ public:
 
     void setTopLeft(const point_coor<num>& p)     { top_left_     = p; }
     void setBottomRight(const point_coor<num>& p) { bottom_right_ = p; }
-
 };
