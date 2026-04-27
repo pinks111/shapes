@@ -1,10 +1,12 @@
 #pragma once
 #include "Identi.h"
 #include "Storage.h"
+#include "Rectangle.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
-enum class PrimitiveType{ POINT, SEGMENT, CIRCLE };
+enum class PrimitiveType{ POINT, SEGMENT, CIRCLE, RECTANGLE };
 
 enum class MutualArrangeType {
 	POINTCOINCIDENT,       // Две точки совпадают
@@ -16,7 +18,6 @@ enum class MutualArrangeType {
 	SEGMENTLENGTH          // Отрезок должен иметь указанную длину
 };
 
-
 class GeometricObject {
 protected:
     Identi id_;
@@ -25,7 +26,7 @@ public:
     GeometricObject() {}
     GeometricObject(const Identi& id) : id_(id) {}
     ~GeometricObject() {}
-    
+
     Identi getId() const { return id_; }
     void setId(const Identi& id) { id_ = id; }
     
@@ -52,25 +53,12 @@ public:
     double getValue() const { return value_; }
     
     virtual double measure() const = 0;
-	virtual Storage<double> getParameters() const = 0;
+
+    virtual Storage<double> getParameters() const = 0;
 	virtual void setParameters(const Storage<double>&) = 0;	
 	virtual Storage<double> partitions() const = 0;
 
-    double error() const { return std::abs(measure() - value_); }
-
-    Storage<double> errors() const {
-        static const double learning_rate = 0.1;  
-        Storage<double> grad = partitions();      
-        double current_error = error();           
-        Storage<double> predicted_errors;
-        
-        for (size_t i = 0; i < grad.getSize(); ++i) {
-            double new_error = current_error - learning_rate * grad.getItem(i);
-            predicted_errors.addItem(new_error);
-        }
-        
-        return predicted_errors;
-    }
+    double error() const { return std::abs(measure() - value_);  }
     
     virtual MutualArrangeType getType() const = 0;
 
@@ -84,18 +72,30 @@ public:
     }
 };
 
-template <typename num> class Point : public GeometricObject {
+template <typename num> class point_coor {
+protected:
     num x_, y_;
 public:
-    Point(num x = 0, num y = 0) : x_(x), y_(y) {}
-    
+    point_coor(num x = 0, num y = 0) : x_(x), y_(y) {}
     num x() const { return x_; }
     num y() const { return y_; }
     void set_x(num x) { x_ = x; }
     void set_y(num y) { y_ = y; }
-    
+};
+
+template <typename num> class Point : public GeometricObject, public point_coor<num> {
+public:
+    Point(num x = 0, num y = 0) : point_coor<num>(x, y) {}
+
     Identi getId() const { return id_; }
     void setId(const Identi& new_id) { id_ = new_id; }
+
+    Rectangle<num> getBoundingRect() const {
+        return Rectangle<num>(
+            point_coor<num>(this->x_, this->y_),
+            point_coor<num>(this->x_, this->y_)
+        );
+    }
 };
 
 template <typename num>
@@ -123,9 +123,17 @@ public:
         double dy = p1_.y() - p2_.y();
         return std::sqrt(dx*dx + dy*dy);  
     }
-    
-    Identi getId() const { return id_; }
-    void setId(const Identi& new_id) { id_ = new_id; }
+
+    Rectangle<num> getBoundingRect() const {
+        num min_x = std::min(p1_.x(), p2_.x());
+        num min_y = std::min(p1_.y(), p2_.y());
+        num max_x = std::max(p1_.x(), p2_.x());
+        num max_y = std::max(p1_.y(), p2_.y());
+        return Rectangle<num>(
+            point_coor<num>(min_x, max_y),
+            point_coor<num>(max_x, min_y)
+        );
+    }
 };
 
 template <typename num>
@@ -149,9 +157,13 @@ public:
     double radius() const { return radius_; }
     void set_center(const Point<num>& center) { center_ = center; }
     void set_radius(double radius) { radius_ = radius; }
-    
-    Identi getId() const { return id_; }
-    void setId(const Identi& new_id) { id_ = new_id; }
+
+    Rectangle<num> getBoundingRect() const {
+        return Rectangle<num>(
+            point_coor<num>(center_.x() - radius_, center_.y() + radius_),
+            point_coor<num>(center_.x() + radius_, center_.y() - radius_)
+        );
+    }
 };
 
 template<typename num>
