@@ -79,8 +79,8 @@ public:
     Identi getId() const { return id_; }
     void setId(const Identi& new_id) { id_ = new_id; }
 
-    Rectangle<num> getBoundingRect() const {
-        return Rectangle<num>(
+    Rect<num> getBoundingRect() const {
+        return Rect<num>(
             point_coor<num>(this->x_, this->y_),
             point_coor<num>(this->x_, this->y_)
         );
@@ -113,12 +113,12 @@ public:
         return std::sqrt(dx*dx + dy*dy);  
     }
 
-    Rectangle<num> getBoundingRect() const {
+    Rect<num> getBoundingRect() const {
         num min_x = std::min(p1_.x(), p2_.x());
         num min_y = std::min(p1_.y(), p2_.y());
         num max_x = std::max(p1_.x(), p2_.x());
         num max_y = std::max(p1_.y(), p2_.y());
-        return Rectangle<num>(
+        return Rect<num>(
             point_coor<num>(min_x, max_y),
             point_coor<num>(max_x, min_y)
         );
@@ -147,8 +147,8 @@ public:
     void set_center(const Point<num>& center) { center_ = center; }
     void set_radius(double radius) { radius_ = radius; }
 
-    Rectangle<num> getBoundingRect() const {
-        return Rectangle<num>(
+    Rect<num> getBoundingRect() const {
+        return Rect<num>(
             point_coor<num>(center_.x() - radius_, center_.y() + radius_),
             point_coor<num>(center_.x() + radius_, center_.y() - radius_)
         );
