@@ -12,12 +12,12 @@ public:
     void set_y(num y) { y_ = y; }
 };
 
-template <typename num> class Rectangle {
+template <typename num> class Rect {
     point_coor<num> top_left_;
     point_coor<num> bottom_right_;
 
 public:
-    Rectangle(
+    Rect(
         const point_coor<num>& top_left     = point_coor<num>(),
         const point_coor<num>& bottom_right = point_coor<num>())
         : top_left_(top_left), bottom_right_(bottom_right) {}
@@ -28,8 +28,11 @@ public:
     void setTopLeft(const point_coor<num>& p)     { top_left_     = p; }
     void setBottomRight(const point_coor<num>& p) { bottom_right_ = p; }
 
-    Rectangle<num> unite(const Rectangle<num>& other) const {
-        return Rectangle<num>(
+    num width()  const { return bottom_right_.x() - top_left_.x(); }
+    num height() const { return top_left_.y() - bottom_right_.y(); }
+
+    Rect<num> unite(const Rect<num>& other) const {
+        return Rect<num>(
             point_coor<num>(std::min(top_left_.x(),     other.top_left_.x()),
                             std::max(top_left_.y(),     other.top_left_.y())),
             point_coor<num>(std::max(bottom_right_.x(), other.bottom_right_.x()),
