@@ -17,13 +17,19 @@ public:
     ~App();
     
     Identi addObject(PrimitiveType type);
+    Identi addPoint(double x, double y);
+    Identi addSegment(double x1, double y1, double x2, double y2);
+    Identi addCircle(double cx, double cy, double radius);
     Identi addArrange(MutualArrangeType type, const Storage<Identi>& ii);
     Identi addArrange(MutualArrangeType type, const Storage<Identi>& ii, double value);
     double sumErrors();
 	
 	bool solve();
 
-    Rectangle<double> unionRect() const;
+    Rect<double> unionRect() const;
+
+    // масштабирует размер и возвращает итоговый размер в outW/outH.
+    void scaleToFit(size_t& outW, size_t& outH);
 
     
     Storage<Point<double>>& getPoints() { return pointStorage_; }
