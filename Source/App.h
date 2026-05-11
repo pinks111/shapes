@@ -1,5 +1,5 @@
 #pragma once 
-#include "Storage.h"
+#include "../Storages-shapes/Storage/Storage.h"
 #include "Identi.h"
 #include "Shapes.h"
 #include "Rectangle.h"
@@ -27,6 +27,9 @@ public:
 	bool solve();
 	
 	void print(const char* filename);
+
+    double getParameterValue(const ParamId& id) const;
+    bool setParameterValue(const ParamId& id, double value);
 
 
     Rect<double> unionRect() const;

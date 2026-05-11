@@ -11,11 +11,27 @@ public:
 };
 
 class ParamId {
-
+    int objectID_;
+    int component_;
 public:
-	ParamId();
+	ParamId(int objectID = 0, int component = 0)
+        : objectID_(objectID), component_(component) {}
 
 	bool operator==(const ParamId& other)const {
-
+        return objectID_ == other.objectID_ && component_ == other.component_;
 	}
+
+    bool operator!=(const ParamId& other) const {
+        return !(*this == other);
+    }
+
+    bool operator<(const ParamId& other) const {
+        if (objectID_ != other.objectID_) {
+            return objectID_ < other.objectID_;
+        }
+        return component_ < other.component_;
+    }
+
+    int getObjectID() const { return objectID_; }
+    int getComponent() const { return component_; }
 };

@@ -1,4 +1,3 @@
-#pragma once
 #include "Identi.h"
 
 template <typename num>

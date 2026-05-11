@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstdint>
 #include "Matrix.h"
-#include "Storage.h"
+#include "../Storages-shapes/Storage/Storage.h"
 
 class Bitmap {
 public:

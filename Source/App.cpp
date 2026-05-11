@@ -153,40 +153,177 @@ double App::sumErrors() {
   }
   return total;
 }
-bool App::solve() {
-  // Пока работаем только с одним требованием
-  if (relationStorage_.getSize() == 1) {
+double App::getParameterValue(const ParamId& id) const {
+  Identi objectId(id.getObjectID());
 
-    // Посчитаем текущее значение ошибки
-    double current_error = relationStorage_.getItem(0)->error();
+  if (const Point<double>* point = findObjectById(objectId, pointStorage_)) {
+    if (id.getComponent() == 0) return point->x();
+    if (id.getComponent() == 1) return point->y();
+  }
 
-    const double errorThrreshold = 1e-3;
-
-    while (current_error > errorThrreshold) {
-      // Получим массив значений параметров
-      Storage<double> parameters = relationStorage_.getItem(0)->getParameters();
-
-      // Вычислим вектор частных производных для требования
-      Storage<double> grad = relationStorage_.getItem(0)->partitions();
-
-      // Сформируем новый вектор параметров
-      static const double learning_rate = 0.1;
-      Storage<double> newParameters;
-      for (size_t i = 0; i < grad.getSize(); ++i) {
-        newParameters.addItem(parameters.getItem(i) -
-                              learning_rate * grad.getItem(i));
-      }
-
-      // Обновим параметры
-      relationStorage_.getItem(0)->setParameters(newParameters);
-
-      // Посчитаем новое значение ошибки
-      current_error = relationStorage_.getItem(0)->error();
-      std::cout << "Error " << current_error << std::endl;
+  if (const Segment<double>* segment = findObjectById(objectId, segmentStorage_)) {
+    switch (id.getComponent()) {
+    case 0: return segment->p1().x();
+    case 1: return segment->p1().y();
+    case 2: return segment->p2().x();
+    case 3: return segment->p2().y();
+    default: break;
     }
   }
 
-  return true;
+  if (const Circle<double>* circle = findObjectById(objectId, circleStorage_)) {
+    switch (id.getComponent()) {
+    case 0: return circle->center().x();
+    case 1: return circle->center().y();
+    case 2: return circle->radius();
+    default: break;
+    }
+  }
+
+  return 0.0;
+}
+
+bool App::setParameterValue(const ParamId& id, double value) {
+  Identi objectId(id.getObjectID());
+
+  if (Point<double>* point = findObjectById(objectId, pointStorage_)) {
+    if (id.getComponent() == 0) {
+      point->set_x(value);
+      return true;
+    }
+    if (id.getComponent() == 1) {
+      point->set_y(value);
+      return true;
+    }
+  }
+
+  if (Segment<double>* segment = findObjectById(objectId, segmentStorage_)) {
+    Point<double> p1 = segment->p1();
+    Point<double> p2 = segment->p2();
+    switch (id.getComponent()) {
+    case 0: p1.set_x(value); break;
+    case 1: p1.set_y(value); break;
+    case 2: p2.set_x(value); break;
+    case 3: p2.set_y(value); break;
+    default: return false;
+    }
+    segment->set_p1(p1);
+    segment->set_p2(p2);
+    return true;
+  }
+
+  if (Circle<double>* circle = findObjectById(objectId, circleStorage_)) {
+    Point<double> center = circle->center();
+    switch (id.getComponent()) {
+    case 0: center.set_x(value); circle->set_center(center); return true;
+    case 1: center.set_y(value); circle->set_center(center); return true;
+    case 2: circle->set_radius(value); return true;
+    default: return false;
+    }
+  }
+
+  return false;
+}
+
+static bool containsParamId(const Storage<ParamId>& ids, const ParamId& id) {
+  for (size_t i = 0; i < ids.getSize(); ++i) {
+    if (ids.getItem(i) == id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool App::solve() {
+  const double errorThreshold = 1e-3;
+  const size_t maxIterations = 10000;
+  double learningRate = 0.1;
+
+  if (relationStorage_.getSize() == 0) {
+    return true;
+  }
+
+  for (size_t iteration = 0; iteration < maxIterations; ++iteration) {
+    double currentError = sumErrors();
+    if (currentError <= errorThreshold) {
+      return true;
+    }
+
+    Storage<ParamId> ids;
+    Dict<ParamId, double> currentValues;
+    Dict<ParamId, double> gradients;
+    bool hasGradient = false;
+
+    for (size_t i = 0; i < relationStorage_.getSize(); ++i) {
+      Relation* relation = relationStorage_.getItem(i);
+      if (relation == nullptr) {
+        continue;
+      }
+
+      Storage<ParamId> relationIds = relation->getParameterIds();
+      Dict<ParamId, double> relationParameters = relation->getIdParameters();
+      Dict<ParamId, double> relationGradients = relation->getIdPartitions();
+
+      for (size_t j = 0; j < relationIds.getSize(); ++j) {
+        ParamId id = relationIds.getItem(j);
+        if (!containsParamId(ids, id)) {
+          ids.addItem(id);
+        }
+        if (!currentValues.contains(id) && relationParameters.contains(id)) {
+          currentValues.insert(id, relationParameters[id]);
+        }
+
+        double gradient = gradients.contains(id) ? gradients[id] : 0.0;
+        if (relationGradients.contains(id)) {
+          double relationGradient = relationGradients[id];
+          gradient += relationGradient;
+          hasGradient = hasGradient || std::abs(relationGradient) > 1e-12;
+        }
+        gradients.insert(id, gradient);
+      }
+    }
+
+    if (ids.getSize() == 0 || !hasGradient) {
+      return false;
+    }
+
+    Dict<ParamId, double> oldValues;
+    for (size_t i = 0; i < ids.getSize(); ++i) {
+      ParamId id = ids.getItem(i);
+      double value = currentValues.contains(id) ? currentValues[id] : getParameterValue(id);
+      oldValues.insert(id, value);
+    }
+
+    bool accepted = false;
+    double step = learningRate;
+
+    for (size_t attempt = 0; attempt < 20; ++attempt) {
+      for (size_t i = 0; i < ids.getSize(); ++i) {
+        ParamId id = ids.getItem(i);
+        double gradient = gradients.contains(id) ? gradients[id] : 0.0;
+        setParameterValue(id, oldValues[id] - step * gradient);
+      }
+
+      double newError = sumErrors();
+      if (std::isfinite(newError) && newError < currentError) {
+        accepted = true;
+        learningRate = std::min(step * 1.2, 1.0);
+        break;
+      }
+
+      for (size_t i = 0; i < ids.getSize(); ++i) {
+        ParamId id = ids.getItem(i);
+        setParameterValue(id, oldValues[id]);
+      }
+      step *= 0.5;
+    }
+
+    if (!accepted) {
+      return false;
+    }
+  }
+
+  return sumErrors() <= errorThreshold;
 }
 
 void App::scaleToFit(size_t& outW, size_t& outH) {

@@ -4,11 +4,11 @@ project(shapes)
 add_library(applib
     App.cpp
     Relations.cpp
-    Storage.cpp
 )
 
 target_include_directories(applib PUBLIC 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Storages-shapes
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Storages-shapes
 )
 
 add_executable(shapes_app main.cpp)

@@ -8,7 +8,10 @@ public:
     double measure() const override;
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTCOINCIDENT; }
 };
 
@@ -19,7 +22,10 @@ public:
     double measure() const override;
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTDISTANCE; }
 };
 
@@ -30,7 +36,10 @@ public:
     double measure() const override;
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTSSYMMETRYSEGMENT; }
 };
 
@@ -41,7 +50,10 @@ public:
     double measure() const override;
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::POINTBELONGSTOSEGMENT; }
 };
 
@@ -52,7 +64,10 @@ public:
     double measure() const override;
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTSNORMAL; }
 };
 
@@ -63,7 +78,10 @@ public:
     double measure() const override;
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTVERTICAL; }
 };
 
@@ -73,7 +91,10 @@ public:
         : Relation(id, objects, value) {}
 	Storage<double> getParameters() const override;
 	void setParameters(const Storage<double>&) override;
+    Storage<ParamId> getParameterIds() const override;
+	Dict<ParamId, double> getIdParameters() const override;
     double measure() const override;
 	Storage<double> partitions() const override;
+	Dict<ParamId, double> getIdPartitions() const override;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTLENGTH; }
 };

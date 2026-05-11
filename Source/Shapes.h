@@ -1,7 +1,7 @@
 #pragma once
 #include "Identi.h"
-#include "Storage.h"
-#include "Dictionaries/DictArray.h"
+#include "../Storages-shapes/Storage/Storage.h"
+#include "../Storages-shapes/BinTree/DictBin.h"
 #include "Rectangle.h"
 #include <cmath>
 #include <iostream>
@@ -58,11 +58,13 @@ public:
     virtual Storage<double> getParameters() const = 0;
 	virtual void setParameters(const Storage<double>&) = 0;	
 
-	virtual ArrayDict<ParamId, double> getIdParameters() const = 0;
+    virtual Storage<ParamId> getParameterIds() const = 0;
+
+	virtual Dict<ParamId, double> getIdParameters() const = 0;
 
 	virtual Storage<double> partitions() const = 0;
 
-	virtual ArrayDict<ParamId, double> getIdPartitions() const = 0;
+	virtual Dict<ParamId, double> getIdPartitions() const = 0;
 
     double error() const { return std::abs(measure() - value_);  }
     

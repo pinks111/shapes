@@ -1,5 +1,6 @@
 #include "Relations.h"
 #include "App.h"
+#include <algorithm>
 #include <cmath>
 
 static Storage<double> pointParams(Point<double>* p) {
@@ -16,6 +17,28 @@ static Storage<double> segmentParams(Segment<double>* s) {
     r.addItem(s->p2().x());
     r.addItem(s->p2().y());
     return r;
+}
+
+static void appendPointParamIds(Storage<ParamId>& ids, const Identi& objectId) {
+    ids.addItem(ParamId(objectId.getID(), 0));
+    ids.addItem(ParamId(objectId.getID(), 1));
+}
+
+static void appendSegmentParamIds(Storage<ParamId>& ids, const Identi& objectId) {
+    ids.addItem(ParamId(objectId.getID(), 0));
+    ids.addItem(ParamId(objectId.getID(), 1));
+    ids.addItem(ParamId(objectId.getID(), 2));
+    ids.addItem(ParamId(objectId.getID(), 3));
+}
+
+static Dict<ParamId, double> makeParamDict(const Storage<ParamId>& ids,
+                                           const Storage<double>& values) {
+    Dict<ParamId, double> result;
+    size_t size = std::min(ids.getSize(), values.getSize());
+    for (size_t i = 0; i < size; ++i) {
+        result.insert(ids.getItem(i), values.getItem(i));
+    }
+    return result;
 }
 
 // measure
@@ -35,7 +58,7 @@ double PointDistanceRelation::measure() const {
     if (!p1 || !p2) return 0.0;
     double dx = p1->x() - p2->x();
     double dy = p1->y() - p2->y();
-    return std::abs(std::sqrt(dx * dx + dy * dy) - value_);
+    return std::sqrt(dx * dx + dy * dy);
 }
 
 double PointBelongsToSegmentRelation::measure() const {
@@ -90,7 +113,7 @@ double SegmentVerticalRelation::measure() const {
 double SegmentLengthRelation::measure() const {
     Segment<double>* seg = app_->findObjectById(objects_.getItem(0), app_->getSegments());
     if (!seg) return 0.0;
-    return std::abs(seg->length() - value_);
+    return seg->length();
 }
 
 // getParameters
@@ -220,6 +243,86 @@ void SegmentLengthRelation::setParameters(const Storage<double>& p) {
     if (!seg) return;
     seg->set_p1(Point<double>(p.getItem(0), p.getItem(1)));
     seg->set_p2(Point<double>(p.getItem(2), p.getItem(3)));
+}
+
+// parameter ids
+
+Storage<ParamId> PointCoincidentRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendPointParamIds(ids, objects_.getItem(0));
+    appendPointParamIds(ids, objects_.getItem(1));
+    return ids;
+}
+
+Storage<ParamId> PointDistanceRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendPointParamIds(ids, objects_.getItem(0));
+    appendPointParamIds(ids, objects_.getItem(1));
+    return ids;
+}
+
+Storage<ParamId> PointBelongsToSegmentRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendPointParamIds(ids, objects_.getItem(0));
+    appendSegmentParamIds(ids, objects_.getItem(1));
+    return ids;
+}
+
+Storage<ParamId> PointsSymmetrySegmentRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendPointParamIds(ids, objects_.getItem(0));
+    appendPointParamIds(ids, objects_.getItem(1));
+    appendSegmentParamIds(ids, objects_.getItem(2));
+    return ids;
+}
+
+Storage<ParamId> SegmentsNormalRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendSegmentParamIds(ids, objects_.getItem(0));
+    appendSegmentParamIds(ids, objects_.getItem(1));
+    return ids;
+}
+
+Storage<ParamId> SegmentVerticalRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendSegmentParamIds(ids, objects_.getItem(0));
+    return ids;
+}
+
+Storage<ParamId> SegmentLengthRelation::getParameterIds() const {
+    Storage<ParamId> ids;
+    appendSegmentParamIds(ids, objects_.getItem(0));
+    return ids;
+}
+
+// dictionaries
+
+Dict<ParamId, double> PointCoincidentRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
+}
+
+Dict<ParamId, double> PointDistanceRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
+}
+
+Dict<ParamId, double> PointBelongsToSegmentRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
+}
+
+Dict<ParamId, double> PointsSymmetrySegmentRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
+}
+
+Dict<ParamId, double> SegmentsNormalRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
+}
+
+Dict<ParamId, double> SegmentVerticalRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
+}
+
+Dict<ParamId, double> SegmentLengthRelation::getIdParameters() const {
+    return makeParamDict(getParameterIds(), getParameters());
 }
 
 // partitions 
@@ -362,4 +465,32 @@ Storage<double> SegmentLengthRelation::partitions() const {
     result.addItem(sign * ( dx / len));
     result.addItem(sign * ( dy / len));
     return result;
+}
+
+Dict<ParamId, double> PointCoincidentRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
+}
+
+Dict<ParamId, double> PointDistanceRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
+}
+
+Dict<ParamId, double> PointBelongsToSegmentRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
+}
+
+Dict<ParamId, double> PointsSymmetrySegmentRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
+}
+
+Dict<ParamId, double> SegmentsNormalRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
+}
+
+Dict<ParamId, double> SegmentVerticalRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
+}
+
+Dict<ParamId, double> SegmentLengthRelation::getIdPartitions() const {
+    return makeParamDict(getParameterIds(), partitions());
 }
