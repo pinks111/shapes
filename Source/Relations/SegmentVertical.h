@@ -7,16 +7,9 @@ class SegmentVerticalRelation : public Relation {
 public:
     SegmentVerticalRelation(const Identi& id, const Storage<Identi>& objects, double value = 0.0)
         : Relation(id, objects, value) {}
-    double measure(App& app) const {
-        Identi segmentId = objects_.getItem(0);
-
-        Segment<double>* seg = app.findObjectById(segmentId, app.getSegments());
-        if (seg == nullptr) {
-            return 0.0;
-        }
-
-        double dx = seg->p2().x() - seg->p1().x();
-        return std::abs(dx);
-    }
+    double measure() const;
     MutualArrangeType getType() const override { return MutualArrangeType::SEGMENTVERTICAL; }
+    Storage<double> getParameters() const;
+    void setParameters(const Storage<double>& p);
+    Storage<double> partitions() const;
 };

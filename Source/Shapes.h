@@ -91,6 +91,12 @@ public:
             point_coor<num>(this->x_, this->y_)
         );
     }
+    static Storage<num> params(Point<num>* p) {
+        Storage<num> r;
+        r.addItem(p->x());
+        r.addItem(p->y());
+        return r;
+    }
 };
 
 template <typename num>
@@ -128,6 +134,15 @@ public:
             point_coor<num>(min_x, max_y),
             point_coor<num>(max_x, min_y)
         );
+    }
+
+    static Storage<num> segmentParams(Segment<num>* s) {
+        Storage<num> r;
+        r.addItem(s->p1().x());
+        r.addItem(s->p1().y());
+        r.addItem(s->p2().x());
+        r.addItem(s->p2().y());
+        return r;
     }
 };
 
